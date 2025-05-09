@@ -1,5 +1,6 @@
 'use client';
 
+
 import Link from 'next/link';
 
 export default function SuiteCard({ id, number, name, status, features, onCall }) {

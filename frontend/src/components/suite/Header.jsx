@@ -1,7 +1,6 @@
 'use client';
 
-
-export default function Header({ title, onToggleSidebar }) {
+export function Header({ title, onToggleSidebar }) {
   return (
     <header className="content__header">
       <div className="header__left">
@@ -11,19 +10,15 @@ export default function Header({ title, onToggleSidebar }) {
         <h1 className="header__title">{title}</h1>
       </div>
       <div className="header__right">
-        <div className="search-bar">
-          <ion-icon name="search-outline"></ion-icon>
-          <input type="text" placeholder="Buscar suítes..." />
+        <div className="time-display">
+          <ion-icon name="time-outline"></ion-icon>
+          <span id="current-time">00:00</span>
         </div>
-        <button className="btn btn--icon notification-btn">
-          <ion-icon name="notifications-outline"></ion-icon>
-          <span className="notification-badge">3</span>
-        </button>
         <div className="user-profile">
           <div className="user-avatar">
             <ion-icon name="person-outline"></ion-icon>
           </div>
-          <span className="user-name">Recepcionista</span>
+          <span className="user-name">Hóspede</span>
         </div>
       </div>
     </header>
