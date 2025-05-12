@@ -25,17 +25,7 @@ export default function Reception() {
     };
   }, []);
 
-  useEffect(() => {
-    // Adiciona a fonte Nunito do Google Fonts
-    const linkElement = document.createElement('link');
-    linkElement.rel = 'stylesheet';
-    linkElement.href = 'https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;500;700&display=swap';
-    document.head.appendChild(linkElement);
-    
-    return () => {
-      document.head.removeChild(linkElement);
-    };
-  }, []);
+
 
   return (
     <>
