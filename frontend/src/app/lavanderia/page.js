@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Script from 'next/script'
+import Link from 'next/link';
 
 import '../../../styles/laundry.css'
 
@@ -9,23 +10,26 @@ export default function LavanderiaPage() {
   const [showCallModal, setShowCallModal] = useState(false)
   const [showNewRequestModal, setShowNewRequestModal] = useState(false)
 
-  useEffect(() => {
-    // Carregar Socket.IO
-    const script = document.createElement('script')
-    script.src = '/socket.io/socket.io.js'
-    document.body.appendChild(script)
 
-    // Carregar script da lavanderia após o Socket.IO
-    script.onload = () => {
-      const lavanderiaScript = document.createElement('script')
-      lavanderiaScript.src = '/js/lavanderia.js'
-      document.body.appendChild(lavanderiaScript)
-    }
+  //também estrutar após chegada do BD
 
-    return () => {
-      document.querySelectorAll('script[src="/socket.io/socket.io.js"], script[src="/js/lavanderia.js"]').forEach(s => s.remove())
-    }
-  }, [])
+  // useEffect(() => {
+  //   // Carregar Socket.IO
+  //   const script = document.createElement('script')
+  //   script.src = '/socket.io/socket.io.js'
+  //   document.body.appendChild(script)
+
+  //   // Carregar script da lavanderia após o Socket.IO
+  //   script.onload = () => {
+  //     const lavanderiaScript = document.createElement('script')
+  //     lavanderiaScript.src = '/js/lavanderia.js'
+  //     document.body.appendChild(lavanderiaScript)
+  //   }
+
+  //   return () => {
+  //     document.querySelectorAll('script[src="/socket.io/socket.io.js"], script[src="/js/lavanderia.js"]').forEach(s => s.remove())
+  //   }
+  // }, [])
 
   return (
     <>
@@ -51,11 +55,13 @@ export default function LavanderiaPage() {
             <ion-icon name="shirt-outline"></ion-icon>
             <span className="item-label">Lavanderia</span>
           </div>
-          <div className="item" id="btn--call-to-reception">
-            <ion-icon name="call-outline"></ion-icon>
-            <span className="item-label">Recepção</span>
-            <span className="tooltip">Chamar Recepção</span>
-          </div>
+          <Link href="/reception" style={{ textDecoration: 'none', color: 'inherit' }}>
+      <div className="item" id="btn--navigate-to-reception">
+        <ion-icon name="call-outline"></ion-icon>
+        <span className="item-label">Recepção</span>
+        <span className="tooltip">Ir para Recepção</span>
+      </div>
+    </Link>
           <div className="item" id="btn--call-to-restaurante">
             <ion-icon name="restaurant-outline"></ion-icon>
             <span className="item-label">Restaurante</span>

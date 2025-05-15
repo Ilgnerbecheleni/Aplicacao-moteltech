@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import '../../../styles/reception.css'
+import '../../styles/reception.css'
 
 
 export default function Reception() {
