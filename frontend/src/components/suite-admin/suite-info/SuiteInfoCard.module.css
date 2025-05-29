@@ -1,0 +1,34 @@
+/* components/SuiteInfoCard.module.css */
+.card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  color: #333333;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detailItem {
+  display: flex;
+  justify-content: space-between;
+}
+
+.label {
+  font-weight: 600;
+  color: #555555;
+}
+
+.value {
+  color: #777777;
+}

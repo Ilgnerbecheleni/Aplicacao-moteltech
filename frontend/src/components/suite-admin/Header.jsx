@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export default function Header({ currentTime }) {
+export default function Header({ currentTime, name }) {
   const [isSidebarExpanded, setIsSidebarExpanded] = useState(false);
 
   const handleSidebarToggle = () => {
@@ -23,7 +23,7 @@ export default function Header({ currentTime }) {
         >
           <i className="icon icon-menu"></i>
         </button>
-        <h1 className="header__title">Suíte Black</h1>
+        <h1 className="header__title"> { name}</h1>
       </div>
       <div className="header__right">
         <div className="time-display">

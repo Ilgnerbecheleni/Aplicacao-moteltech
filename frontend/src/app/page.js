@@ -1,10 +1,27 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import '../../styles/reception.css'
+import SuiteCard from '@/components/card/suiteCard';
 
 
 export default function Reception() {
+  const [suites, setSuites] = useState([]);
+
+  useEffect(() => {
+    async function fetchSuites() {
+      try {
+        const res = await fetch('/api/suites');
+        const data = await res.json();
+        setSuites(data);
+      } catch (err) {
+        console.error('Erro ao carregar suítes:', err);
+      }
+    }
+
+    fetchSuites();
+  }, []);
+
 
 
 
@@ -37,7 +54,7 @@ export default function Reception() {
   return (
     <>
       {/* Sidebar */}
-      <div className="sidebar">
+         <div className="sidebar">
         <div className="sidebar__logo">
           <ion-icon name="bed-outline"></ion-icon>
           <span className="logo-text">MotelTech</span>
@@ -51,22 +68,7 @@ export default function Reception() {
             <ion-icon name="bed-outline"></ion-icon>
             <span className="item-label">Suítes</span>
           </div>
-          <div className="item">
-            <ion-icon name="calendar-outline"></ion-icon>
-            <span className="item-label">Reservas</span>
-          </div>
-          <div className="item">
-            <ion-icon name="cart-outline"></ion-icon>
-            <span className="item-label">Serviços</span>
-          </div>
-          <div className="item">
-            <ion-icon name="people-outline"></ion-icon>
-            <span className="item-label">Clientes</span>
-          </div>
-          <div className="item">
-            <ion-icon name="cash-outline"></ion-icon>
-            <span className="item-label">Financeiro</span>
-          </div>
+         
           <div className="item">
             <ion-icon name="settings-outline"></ion-icon>
             <span className="item-label">Configurações</span>
@@ -149,138 +151,36 @@ export default function Reception() {
           </div>
           
           {/* Suites Section */}
-          <div className="content__section">
-            <div className="section__header">
-              <h2 className="section__title">Suítes</h2>
-              <div className="section__actions">
-                <button className="btn btn--outline">
-                  <ion-icon name="filter-outline"></ion-icon>
-                  Filtrar
-                </button>
-                <button className="btn btn--primary">
-                  <ion-icon name="add-outline"></ion-icon>
-                  Nova Entrada
-                </button>
-              </div>
-            </div>
-            
-            <div className="suites-grid">
-              {/* Suite Card - Available */}
-              <div className="suite-card suite-card--available">
-                <div className="suite-card__header">
-                  <div className="suite-number">101</div>
-                  <div className="suite-status">Disponível</div>
-                </div>
-                <div className="suite-card__content">
-                  <h3 className="suite-name">Suíte Luxo</h3>
-                  <div className="suite-details">
-                    <div className="suite-detail">
-                      <ion-icon name="star-outline"></ion-icon>
-                      <span>Premium</span>
-                    </div>
-                    <div className="suite-detail">
-                      <ion-icon name="cash-outline"></ion-icon>
-                      <span>R$ 150 / 2h</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="suite-card__footer">
-                  <button className="btn btn--secondary btn--small">
-                    <ion-icon name="eye-outline"></ion-icon>
-                    Detalhes
-                  </button>
-                  <button className="btn btn--primary btn--small">
-                    <ion-icon name="enter-outline"></ion-icon>
-                    Entrada
-                  </button>
-                </div>
-              </div>
-              
-              {/* Suite Card - Occupied */}
-              <div className="suite-card suite-card--occupied">
-                <div className="suite-card__header">
-                  <div className="suite-number">102</div>
-                  <div className="suite-status">Ocupado</div>
-                </div>
-                <div className="suite-card__content">
-                  <h3 className="suite-name">Suíte Master</h3>
-                  <div className="suite-details">
-                    <div className="suite-detail">
-                      <ion-icon name="star-outline"></ion-icon>
-                      <span>Premium</span>
-                    </div>
-                    <div className="suite-detail">
-                      <ion-icon name="cash-outline"></ion-icon>
-                      <span>R$ 190 / 2h</span>
-                    </div>
-                  </div>
-                  <div className="suite-occupancy">
-                    <div className="occupant">
-                      <ion-icon name="person-outline"></ion-icon>
-                      <span>Cliente Anônimo</span>
-                    </div>
-                    <div className="check-times">
-                      <div className="check-time">
-                        <ion-icon name="log-in-outline"></ion-icon>
-                        <span>18:30</span>
-                      </div>
-                      <div className="check-time">
-                        <ion-icon name="log-out-outline"></ion-icon>
-                        <span>20:30</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="suite-card__footer">
-                  <button className="btn btn--secondary btn--small">
-                    <ion-icon name="eye-outline"></ion-icon>
-                    Detalhes
-                  </button>
-                  <button className="btn btn--primary btn--small">
-                    <ion-icon name="exit-outline"></ion-icon>
-                    Saída
-                  </button>
-                </div>
-              </div>
-              
-              {/* Suite Card - Maintenance */}
-              <div className="suite-card suite-card--maintenance">
-                <div className="suite-card__header">
-                  <div className="suite-number">103</div>
-                  <div className="suite-status">Manutenção</div>
-                </div>
-                <div className="suite-card__content">
-                  <h3 className="suite-name">Suíte Standard</h3>
-                  <div className="suite-details">
-                    <div className="suite-detail">
-                      <ion-icon name="star-outline"></ion-icon>
-                      <span>Standard</span>
-                    </div>
-                    <div className="suite-detail">
-                      <ion-icon name="cash-outline"></ion-icon>
-                      <span>R$ 100 / 2h</span>
-                    </div>
-                  </div>
-                  <div className="maintenance-info">
-                    <ion-icon name="construct-outline"></ion-icon>
-                    <span>Manutenção no ar-condicionado</span>
-                  </div>
-                </div>
-                <div className="suite-card__footer">
-                  <button className="btn btn--secondary btn--small">
-                    <ion-icon name="eye-outline"></ion-icon>
-                    Detalhes
-                  </button>
-                  <button className="btn btn--primary btn--small">
-                    <ion-icon name="checkmark-outline"></ion-icon>
-                    Concluir
-                  </button>
-                </div>
-              </div>
-            </div>
+           <div className="content__section">
+        <div className="section__header">
+          <h2 className="section__title">Suítes</h2>
+          <div className="section__actions">
+            <button className="btn btn--outline">
+              <ion-icon name="filter-outline"></ion-icon>
+              Filtrar
+            </button>
+            <button className="btn btn--primary">
+              <ion-icon name="add-outline"></ion-icon>
+              Nova Entrada
+            </button>
           </div>
+        </div>
+
+        <div className="suites-grid">
+          {suites.map((suite) => (
+             <SuiteCard
+      key={suite.id}
+      id={suite.id}
+      numero={suite.numero}
+      nome={suite.nome}
+      ramal={suite.ramal}
+      status={suite.status}
+    />
+          ))}
+        </div>
+      </div>
           
-          {/* Services Section */}
+          {/* Services Section
           <div className="content__section">
             <div className="section__header">
               <h2 className="section__title">Serviços</h2>
@@ -373,7 +273,7 @@ export default function Reception() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           
           {/* Activity Section */}
           <div className="content__section">
