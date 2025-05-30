@@ -1,9 +1,15 @@
+"use client"
+
 import Header from "@/components/header"
 import StatusCard from "@/components/status-card"
 import { Button } from "@/components/ui/button"
-import { UtensilsCrossed, Clock, Check, Filter, DollarSign } from "lucide-react"
+import { UtensilsCrossed, Clock, Check, Filter, DollarSign, Phone } from "lucide-react"
+import { useTelefonia } from "@/contexts/telefonia-context"
+import ModalTelefonia from "@/components/modal-telefonia"
 
 export default function Restaurante() {
+  const { iniciarChamada } = useTelefonia()
+
   const statusCards = [
     {
       icon: <UtensilsCrossed className="h-5 w-5 text-primary" />,
@@ -45,11 +51,30 @@ export default function Restaurante() {
     },
   ]
 
+  const handleChamarRecepcao = () => {
+    iniciarChamada({
+      nome: "Recepção",
+      ramal: "100",
+      numero: "+55 11 9999-0100",
+    })
+  }
+
   return (
     <div className="h-full flex flex-col">
       <Header title="Restaurante" />
+      <ModalTelefonia />
 
       <div className="flex-1 p-4 overflow-auto">
+        <div className="flex justify-end mb-4">
+          <Button
+            onClick={handleChamarRecepcao}
+            className="bg-green-600 hover:bg-green-700 text-white"
+          >
+            <Phone className="h-4 w-4 mr-2" />
+            Ligar para Recepção
+          </Button>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {statusCards.map((card, index) => (
             <StatusCard key={index} icon={card.icon} value={card.value} label={card.label} change={card.change} />

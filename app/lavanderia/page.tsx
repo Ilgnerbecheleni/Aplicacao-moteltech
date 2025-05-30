@@ -1,10 +1,16 @@
-import Header from "@/components/header"
-import StatusCard from "@/components/status-card"
-import { Button } from "@/components/ui/button"
-import { Clock, Check, Filter, ShirtIcon, Droplet, Bed, Zap } from "lucide-react"
-import { Pencil } from "lucide-react"
+"use client";
+
+import Header from "@/components/header";
+import StatusCard from "@/components/status-card";
+import { Button } from "@/components/ui/button";
+import ModalTelefonia from "@/components/modal-telefonia";
+import { Clock, Check, Filter, ShirtIcon, Droplet, Bed, Zap, Phone } from "lucide-react";
+import { Pencil } from "lucide-react";
+import { useTelefonia } from "@/contexts/telefonia-context";
 
 export default function Lavanderia() {
+  const { iniciarChamada } = useTelefonia();
+
   const statusCards = [
     {
       icon: <ShirtIcon className="h-5 w-5 text-primary" />,
@@ -31,7 +37,7 @@ export default function Lavanderia() {
       label: "Tempo Médio",
       change: { value: 10, positive: false },
     },
-  ]
+  ];
 
   const solicitacoes = [
     {
@@ -67,18 +73,27 @@ export default function Lavanderia() {
       hora: "09:15",
       cor: "green",
     },
-  ]
+  ];
 
   const servicos = [
     { id: 1, nome: "Lavagem de Roupas", icon: <ShirtIcon className="h-5 w-5 text-primary" /> },
     { id: 2, nome: "Lavagem a Seco", icon: <Droplet className="h-5 w-5 text-primary" /> },
     { id: 3, nome: "Troca de Roupa de Cama", icon: <Bed className="h-5 w-5 text-primary" /> },
     { id: 4, nome: "Passadoria", icon: <Zap className="h-5 w-5 text-primary" /> },
-  ]
+  ];
+
+  const chamarRecepcao = () => {
+    iniciarChamada({
+      nome: "Recepção",
+      ramal: "100",
+      numero: "+55 11 9999-0100",
+    });
+  };
 
   return (
     <div className="h-full flex flex-col">
       <Header title="Lavanderia" />
+      <ModalTelefonia />
 
       <div className="flex-1 p-4 overflow-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -159,20 +174,9 @@ export default function Lavanderia() {
                       variant="ghost"
                       size="icon"
                       className="rounded-none h-10 w-10 text-gray-400 hover:bg-gray-700"
+                      onClick={chamarRecepcao}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                      </svg>
+                      <Phone className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
@@ -204,5 +208,5 @@ export default function Lavanderia() {
         </div>
       </div>
     </div>
-  )
+  );
 }

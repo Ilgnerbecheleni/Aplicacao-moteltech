@@ -7,7 +7,15 @@ import { Phone, PhoneCall, PhoneOff, User, Clock } from "lucide-react"
 import { useEffect, useState } from "react"
 
 export default function ModalTelefonia() {
-  const { status, dadosChamada, modalAberto, atenderChamada, encerrarChamada, fecharModal } = useTelefonia()
+  const {
+    status,
+    dadosChamada,
+    modalAberto,
+    atenderChamada,
+    encerrarChamada,
+    fecharModal
+  } = useTelefonia()
+
   const [duracaoFormatada, setDuracaoFormatada] = useState("00:00")
 
   useEffect(() => {

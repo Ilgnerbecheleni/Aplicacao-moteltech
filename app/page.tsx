@@ -18,9 +18,7 @@ export default function Recepcao() {
     async function fetchSuites() {
       try {
         const response = await fetch("/api/suites")
-        if (!response.ok) {
-          throw new Error("Erro ao carregar suítes")
-        }
+        if (!response.ok) throw new Error("Erro ao carregar suítes")
         const data = await response.json()
         setSuites(data)
       } catch (err) {
@@ -50,19 +48,10 @@ export default function Recepcao() {
     },
   ]
 
-  const handleChamarQuarto = (suite: Suite) => {
+  const handleChamar = (nome: string, ramal: string) => {
     iniciarChamada({
-      nome: suite.nome,
-      ramal: suite.ramal || `R${suite.numero}`,
-      numero: `+55 11 9999-${suite.numero}`,
-    })
-  }
-
-  const handleChamarContato = (contato: any) => {
-    iniciarChamada({
-      nome: contato.nome,
-      ramal: contato.ramal,
-      numero: `+55 11 9999-${contato.ramal}`,
+      nome,
+      ramal,
     })
   }
 
@@ -99,9 +88,10 @@ export default function Recepcao() {
       <Header title="Recepção" />
 
       <div className="flex-1 p-4 overflow-auto">
+        {/* Lista de suítes */}
         <div className="mb-8">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold border-l-4 border-primary pl-2">Suites ({suites.length})</h2>
+            <h2 className="text-lg font-semibold border-l-4 border-primary pl-2">Suítes ({suites.length})</h2>
             <div className="flex items-center gap-2">
               <Button variant="outline" size="sm" className="text-gray-400 border-gray-700">
                 <Info className="h-4 w-4 mr-1" />
@@ -116,6 +106,7 @@ export default function Recepcao() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {suites.map((suite) => {
               const statusInfo = getStatusSuite(suite.status)
+              const ramal = suite.ramal || `R${suite.numero}`
               return (
                 <div key={suite.id} className="bg-[#1e1e1e] rounded-xl overflow-hidden">
                   <div className="p-4">
@@ -125,24 +116,10 @@ export default function Recepcao() {
                         {statusInfo.label}
                       </span>
                     </div>
-
                     <h3 className="text-lg font-medium mb-2">{suite.nome}</h3>
                     <div className="flex items-center text-sm text-gray-400">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="mr-1"
-                      >
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                      </svg>
-                      {suite.ramal || `R${suite.numero}`}
+                      <Phone className="h-4 w-4 mr-1" />
+                      {ramal}
                     </div>
                   </div>
 
@@ -150,7 +127,7 @@ export default function Recepcao() {
                     <Button
                       variant="ghost"
                       className="flex-1 rounded-none py-3 text-green-400 hover:bg-green-500/20 hover:text-green-400"
-                      onClick={() => handleChamarQuarto(suite)}
+                      onClick={() => handleChamar(suite.nome, ramal)}
                     >
                       <Phone className="h-4 w-4 mr-1" />
                       Chamar
@@ -171,6 +148,7 @@ export default function Recepcao() {
           </div>
         </div>
 
+        {/* Contatos Rápidos */}
         <div>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold border-l-4 border-primary pl-2">Contatos Rápidos</h2>
@@ -193,7 +171,7 @@ export default function Recepcao() {
                   <Button
                     variant="ghost"
                     className="w-full rounded-none py-3 text-green-400 hover:bg-green-500/20 hover:text-green-400"
-                    onClick={() => handleChamarContato(contato)}
+                    onClick={() => handleChamar(contato.nome, contato.ramal)}
                   >
                     <Phone className="h-4 w-4 mr-2" />
                     Chamar {contato.nome}
