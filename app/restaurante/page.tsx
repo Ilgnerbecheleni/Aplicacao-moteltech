@@ -1,5 +1,6 @@
 "use client"
 
+import ChamadaServico from "@/components/ChamadaServico"
 import Header from "@/components/header"
 import StatusCard from "@/components/status-card"
 import { Button } from "@/components/ui/button"
@@ -55,7 +56,7 @@ export default function Restaurante() {
   return (
     <div className="h-full flex flex-col">
       <Header title="Restaurante" />
-
+      <ChamadaServico id="restaurante"/>
 
       <div className="flex-1 p-4 overflow-auto">
    

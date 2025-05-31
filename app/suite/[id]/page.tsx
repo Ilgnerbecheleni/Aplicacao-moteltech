@@ -23,8 +23,9 @@ import {
 import Header from "@/components/header"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useState, useEffect } from "react"
-import { useCall } from "@/hooks/useCall";
+
 import { type Suite, getStatusSuite } from "@/types/suite"
+import ChamadaSuite from "@/components/ChamadaSuite"
 
 
 type LampadaKey = "principal" | "banheiro" | "ambiente" | "led"
@@ -39,7 +40,7 @@ type Lampadas = Record<LampadaKey, Lampada>
 export default function SuiteDetails() {
   const params = useParams()
   const router = useRouter()
-  const suiteId = params.id
+  const suiteId  = params.id
  
 
   const [suite, setSuite] = useState<Suite | null>(null)
@@ -52,7 +53,7 @@ export default function SuiteDetails() {
     router.push("/restaurante/cardapio")
   }
 
-const { call, answer, endCall, callInfo, emLigacao } = useCall(suite?.ramal?.toString() || '');
+
 
 
   useEffect(() => {
@@ -141,17 +142,6 @@ const { call, answer, endCall, callInfo, emLigacao } = useCall(suite?.ramal?.toS
   const statusInfo = getStatusSuite(suite.status);
 
 
-  if (callInfo) {
-  return (
-    <div className="h-full flex flex-col justify-center items-center bg-black text-white">
-      <h2 className="text-2xl font-bold mb-4">Recebendo Chamada</h2>
-      <p className="mb-6">Alguém está ligando para esta suíte!</p>
-      <Button className="bg-green-600 hover:bg-green-700" onClick={answer}>
-        Atender
-      </Button>
-    </div>
-  );
-}
 
   return (
     <div className="h-full flex flex-col bg-[#121212]">
@@ -629,24 +619,10 @@ const { call, answer, endCall, callInfo, emLigacao } = useCall(suite?.ramal?.toS
               </div>
 
               <div className="border-t border-gray-700 pt-4 mt-4">
-                <p className="text-sm text-gray-400 mb-2">Contatos Rápidos</p>
-                <Button
-  variant="outline"
-  className="w-full justify-start mb-2 text-green-400 border-green-500/30 hover:bg-green-500/20"
-  onClick={() => call("200")}
->
-  <Phone className="h-4 w-4 mr-2" />
-  Chamar Lavanderia
-</Button>
+              <ChamadaSuite idsuite={suiteId} />
+         
 
-<Button
-  variant="outline"
-  className="w-full justify-start text-green-400 border-green-500/30 hover:bg-green-500/20"
-  onClick={() => call("300")}
->
-  <Phone className="h-4 w-4 mr-2" />
-  Chamar Restaurante
-</Button>
+
               </div>
 
               <Button variant="destructive" className="w-full justify-start mt-4">

@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 
 import { useEffect, useState } from "react"
 import { type Suite, getStatusSuite } from "@/types/suite"
+import ChamadaServico from "@/components/ChamadaServico"
 
 export default function Recepcao() {
   
@@ -141,10 +142,8 @@ export default function Recepcao() {
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold border-l-4 border-primary pl-2">Contatos Rápidos</h2>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      
-          </div>
+          <ChamadaServico id={"recepcao"}/>
+          
         </div>
       </div>
     </div>
