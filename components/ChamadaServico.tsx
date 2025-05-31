@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, useImperativeHandle } from "react"
 import { iniciarPeer, getPeer } from "@/services/peerManager"
 import { iniciarChamada, atenderChamada, encerrarChamada } from "@/services/callManager"
 import { Phone, PhoneOff,  Check, X } from "lucide-react"
@@ -15,10 +15,11 @@ interface Cliente {
 }
 interface ChamadaServicoProps {
   id: string;
+   onChamar?: (fn: (destinoId: string) => Promise<void>) => void; // nova prop opcional
 }
 
 
-export default function ChamadaServico({ id }: ChamadaServicoProps) {
+export default function ChamadaServico({ id, onChamar }: ChamadaServicoProps,) {
   const [meuId, setMeuId] = useState<string>("recepcao")
   const [chamadaDe, setChamadaDe] = useState<string | null>(null)
   const [chamadaAtiva, setChamadaAtiva] = useState<boolean>(false)
@@ -45,6 +46,16 @@ useEffect(() => {
   //   destroyPeer();
   // };
 }, [id]);
+
+
+  useEffect(() => {
+    if (onChamar) onChamar(handleChamar);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onChamar]);
+
+
+
+
 
 
 const carregarClientes = async () => {
@@ -180,34 +191,7 @@ const carregarClientes = async () => {
         </div>
       </div>
 
-      <ul className="divide-y divide-gray-800">
-        {clientes.length === 0 ? (
-          <li className="py-4 text-center text-gray-500">Nenhum cliente cadastrado.</li>
-        ) : (
-          clientes.map((cliente) => (
-            <li
-              key={cliente.id}
-              className="py-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 transition-colors hover:bg-[#232323] rounded-md"
-            >
-              <div className="flex-1 flex flex-col sm:flex-row sm:items-center gap-2">
-                <span className="text-sm text-gray-400">ID: {cliente.id}</span>
-                <span className="font-medium text-gray-100">{cliente.nome}</span>
-              </div>
-              <div className="flex gap-2 mt-2 sm:mt-0">
-                <button
-                  onClick={() => handleChamar(cliente.id)}
-                  className="inline-flex items-center px-3 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:ring-2 focus:ring-blue-400"
-                  aria-label={`Ligar para ${cliente.nome}`}
-                  title={`Ligar para ${cliente.nome}`}
-                >
-                  <Phone className="w-5 h-5" />
-                </button>
-                {/* Adicione aqui outros botões se quiser, como editar/excluir */}
-              </div>
-            </li>
-          ))
-        )}
-      </ul>
+     
   
  
 </main>

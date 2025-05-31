@@ -7,6 +7,7 @@ import { iniciarChamada, atenderChamada, encerrarChamada } from "@/services/call
 import ReactHowler from "react-howler";
 import { Phone, PhoneCall, PhoneOff, Check, X } from "lucide-react";
 import { MediaConnection } from "peerjs";
+import { useServiceIds } from "@/contexts/ServiceIdContext";
 
 // Tipagem da lista de clientes (apenas o que você usa)
 interface ClienteApi {
@@ -31,6 +32,8 @@ export default function ChamadaSuite({ idsuite }:ChamadaSuiteProps) {
   const [tocandoToque, setTocandoToque] = useState<boolean>(false);
   const [mensagem, setMensagem] = useState<string>("");
   const [tipoMensagem, setTipoMensagem] = useState<"erro" | "info" | "sucesso" | "">("");
+
+  const { ids } = useServiceIds();
 
 useEffect(() => {
   const validarCliente = async () => {

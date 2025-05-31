@@ -5,16 +5,18 @@ import { Info, Phone, ShirtIcon, UtensilsCrossed } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { type Suite, getStatusSuite } from "@/types/suite"
 import ChamadaServico from "@/components/ChamadaServico"
+import { useServiceIds } from "@/contexts/ServiceIdContext"
 
 export default function Recepcao() {
-  
+
   const [suites, setSuites] = useState<Suite[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-
+  const chamarClienteRef = useRef<((id: string) => Promise<void>) | undefined>();
+  const { ids } = useServiceIds();
   useEffect(() => {
     async function fetchSuites() {
       try {
@@ -55,6 +57,7 @@ export default function Recepcao() {
     return (
       <div className="h-full flex flex-col">
         <Header title="Recepção" />
+        
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
@@ -82,6 +85,7 @@ export default function Recepcao() {
   return (
     <div className="h-full flex flex-col">
       <Header title="Recepção" />
+  <ChamadaServico id='recepcao'  onChamar={fn => { chamarClienteRef.current = fn; }}  />
 
       <div className="flex-1 p-4 overflow-auto">
         {/* Lista de suítes */}
@@ -120,7 +124,17 @@ export default function Recepcao() {
                   </div>
 
                   <div className="border-t border-gray-800 flex">
-                
+                    <Button
+                      variant="ghost"
+                      className="flex-1 rounded-none py-3 text-green-400 hover:bg-green-400/20 hover:text-green-400"
+                      onClick={() => chamarClienteRef.current?.(String(suite.id))}
+                    >
+                      <Phone className="h-4 w-4 mr-1" />
+                      Chamar
+                    </Button>
+
+                    <div className="border-l border-gray-800" />
+
                     <Link href={`/suite/${suite.id}`} className="flex-1">
                       <Button
                         variant="ghost"
@@ -142,7 +156,6 @@ export default function Recepcao() {
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold border-l-4 border-primary pl-2">Contatos Rápidos</h2>
           </div>
-          <ChamadaServico id={"recepcao"}/>
           
         </div>
       </div>

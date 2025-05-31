@@ -22,7 +22,7 @@ import {
 } from "lucide-react"
 import Header from "@/components/header"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 
 import { type Suite, getStatusSuite } from "@/types/suite"
 import ChamadaSuite from "@/components/ChamadaSuite"
@@ -46,6 +46,7 @@ export default function SuiteDetails() {
   const [suite, setSuite] = useState<Suite | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+const chamarClienteRef = useRef<((id: string) => Promise<void>) | undefined>();
 
 
   function handleFazerPedido() {

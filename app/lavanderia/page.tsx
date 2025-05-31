@@ -1,5 +1,6 @@
 "use client";
 
+import ChamadaServico from "@/components/ChamadaServico";
 import Header from "@/components/header";
 import StatusCard from "@/components/status-card";
 import { Button } from "@/components/ui/button";
@@ -87,6 +88,7 @@ export default function Lavanderia() {
   return (
     <div className="h-full flex flex-col">
       <Header title="Lavanderia" />
+       <ChamadaServico id="lavanderia"/>
     
       <div className="flex-1 p-4 overflow-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
