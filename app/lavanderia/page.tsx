@@ -3,13 +3,13 @@
 import Header from "@/components/header";
 import StatusCard from "@/components/status-card";
 import { Button } from "@/components/ui/button";
-import ModalTelefonia from "@/components/modal-telefonia";
+
 import { Clock, Check, Filter, ShirtIcon, Droplet, Bed, Zap, Phone } from "lucide-react";
 import { Pencil } from "lucide-react";
-import { useTelefonia } from "@/contexts/telefonia-context";
+
 
 export default function Lavanderia() {
-  const { iniciarChamada } = useTelefonia();
+
 
   const statusCards = [
     {
@@ -82,19 +82,12 @@ export default function Lavanderia() {
     { id: 4, nome: "Passadoria", icon: <Zap className="h-5 w-5 text-primary" /> },
   ];
 
-  const chamarRecepcao = () => {
-    iniciarChamada({
-      nome: "Recepção",
-      ramal: "100",
-      numero: "+55 11 9999-0100",
-    });
-  };
+ 
 
   return (
     <div className="h-full flex flex-col">
       <Header title="Lavanderia" />
-      <ModalTelefonia />
-
+    
       <div className="flex-1 p-4 overflow-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           {statusCards.map((card, index) => (
@@ -170,14 +163,7 @@ export default function Lavanderia() {
                     >
                       <Check className="h-4 w-4" />
                     </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="rounded-none h-10 w-10 text-gray-400 hover:bg-gray-700"
-                      onClick={chamarRecepcao}
-                    >
-                      <Phone className="h-4 w-4" />
-                    </Button>
+              
                   </div>
                 </div>
               </div>

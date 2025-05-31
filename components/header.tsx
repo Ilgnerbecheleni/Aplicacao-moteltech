@@ -1,6 +1,6 @@
 import { Bell, Search, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import BotaoTelefonia from "@/components/botao-telefonia"
+
 
 interface HeaderProps {
   title: string
@@ -25,7 +25,7 @@ export default function Header({ title, showSearch = true }: HeaderProps) {
           </div>
         )}
 
-        <BotaoTelefonia />
+       
 
         <Button variant="ghost" size="icon" className="relative">
           <Bell className="h-5 w-5" />

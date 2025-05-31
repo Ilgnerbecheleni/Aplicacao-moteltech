@@ -3,8 +3,7 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { TelefoniaProvider } from "@/contexts/telefonia-context"
-import ModalTelefonia from "@/components/modal-telefonia"
+
 import ConditionalLayout from "@/components/conditional-layout"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -23,10 +22,9 @@ export default function RootLayout({
     <html lang="pt-BR" suppressHydrationWarning>
       <body className={`${inter.className} bg-[#121212] text-white`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
-          <TelefoniaProvider>
+        
             <ConditionalLayout>{children}</ConditionalLayout>
-            <ModalTelefonia />
-          </TelefoniaProvider>
+         
         </ThemeProvider>
       </body>
     </html>
