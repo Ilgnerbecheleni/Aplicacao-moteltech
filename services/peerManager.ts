@@ -12,14 +12,14 @@ interface TokenResponse {
   credential: string;
 }
 export const iniciarPeer = async (meuId: string): Promise<Peer> => {
-  // Se já existir um peer com outro ID, destrua antes!
-  if (peer && peer.id !== meuId) destroyPeer();
+  // // Se já existir um peer com outro ID, destrua antes!
+  // if (peer && peer.id !== meuId) destroyPeer();
 
   // Se já existe peer com mesmo ID E já está aberto, só retorna!
   if (peer && peer.id === meuId && peer.open) return peer;
 
   // Se existe peer mas não está aberto ainda (edge case), destrua para evitar inconsistência
-  if (peer) destroyPeer();
+  // if (peer) destroyPeer();
 
   const res = await fetch('https://webrtc.jobsconnect.com.br/token');
   const token: TokenResponse = await res.json();
@@ -88,11 +88,4 @@ export const waitPeerOpen = async (): Promise<void> => {
 };
 
 
-
-export const destroyPeer = (): void => {
-  if (peer) {
-    peer.destroy();
-    peer = null;
-  }
-};
 

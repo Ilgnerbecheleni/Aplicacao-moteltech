@@ -1,6 +1,6 @@
 // services/callManager.ts
 import { getLocalStream, stopLocalStream } from './streamManager';
-import { destroyPeer, getPeer, waitPeerOpen } from './peerManager';
+import {  getPeer, waitPeerOpen } from './peerManager';
 import Peer, { MediaConnection } from 'peerjs';
 
 // Tipagem para função de atualização de status
@@ -89,7 +89,7 @@ export const encerrarChamada = (setStatusChamada: SetStatusChamada): void => {
     clearInterval(verificarChamadaInterval);
     verificarChamadaInterval = null;
   }
-  destroyPeer();
+  //destroyPeer();
 };
 
 function iniciarVerificacaoChamada(setStatusChamada: SetStatusChamada): void {

@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState, useRef } from "react"
-import { iniciarPeer, getPeer, destroyPeer } from "@/services/peerManager"
+import { iniciarPeer, getPeer } from "@/services/peerManager"
 import { iniciarChamada, atenderChamada, encerrarChamada } from "@/services/callManager"
 import { Phone, PhoneOff,  Check, X } from "lucide-react"
 import toast, { Toaster } from "react-hot-toast"
@@ -41,9 +41,9 @@ useEffect(() => {
   carregarClientes();
 
   // ⚡️ DESTROY O PEER AO DESMONTAR/SAIR
-  return () => {
-    destroyPeer();
-  };
+  // return () => {
+  //   destroyPeer();
+  // };
 }, [id]);
 
 
