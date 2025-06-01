@@ -4,7 +4,7 @@ let peer: Peer | null = null;
 let peerReadyPromise: Promise<void> | null = null;
 let peerReadyResolve: (() => void) | null = null;
 
-const API_URL = 'webrtc.jobsconnect.com.br';
+const API_URL = 'turn.livintech.com.br';
 
 interface TokenResponse {
   urls: string[];
@@ -21,7 +21,7 @@ export const iniciarPeer = async (meuId: string): Promise<Peer> => {
   // Se existe peer mas não está aberto ainda (edge case), destrua para evitar inconsistência
   // if (peer) destroyPeer();
 
-  const res = await fetch('https://webrtc.jobsconnect.com.br/token');
+  const res = await fetch('https://turn.livintech.com.br/token');
   const token: TokenResponse = await res.json();
 
   const options: PeerJSOption = {
