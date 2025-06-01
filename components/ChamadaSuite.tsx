@@ -5,9 +5,10 @@ import { useParams } from "next/navigation";
 import { iniciarPeer } from "@/services/peerManager";
 import { iniciarChamada, atenderChamada, encerrarChamada } from "@/services/callManager";
 import ReactHowler from "react-howler";
-import { Phone, PhoneCall, PhoneOff, Check, X } from "lucide-react";
+import { Phone,  PhoneOff, Check, X, Coffee, Shirt, HandPlatter } from "lucide-react";
 import { MediaConnection } from "peerjs";
 import { useServiceIds } from "@/contexts/ServiceIdContext";
+import { useRouter } from "next/router";
 
 // Tipagem da lista de clientes (apenas o que você usa)
 interface ClienteApi {
@@ -144,12 +145,8 @@ useEffect(() => {
   }
 
   return (
-    <main className="container mx-auto px-4 py-8 max-w-2xl bg-[#1e1e1e] min-h-screen">
-  <div className="bg-[#232323] rounded-xl shadow-md p-6 border border-gray-800">
-    <h1 className="text-3xl font-bold text-white mb-6 pb-2 border-b border-gray-800 flex items-center">
-      <PhoneCall className="mr-3 h-7 w-7 text-blue-400" />
-      {nomeCliente} <span className="text-blue-400 ml-2 text-lg">({id})</span>
-    </h1>
+    <main className=" ">
+ 
 
     {/* 🔔 Toque da chamada */}
     <ReactHowler src="/toque-cliente.mp3" playing={tocandoToque} loop={true} volume={1.0} />
@@ -170,7 +167,7 @@ useEffect(() => {
 
     {chamadaDe && (
       <div className="mb-6 p-5 bg-yellow-900/20 border border-yellow-700 rounded-lg animate-pulse">
-        <h2 className="text-xl font-semibold text-yellow-300 mb-4">Chamada recebida da Recepção</h2>
+        <h2 className="text-xl font-semibold text-yellow-300 mb-4">Chamada recebida</h2>
         <div className="flex space-x-4">
           <button
             onClick={handleAtender}
@@ -206,38 +203,41 @@ useEffect(() => {
     )}
 
     {!chamadaDe && !chamadaAtiva && (
-      <div className="p-5 bg-[#181818] border border-gray-800 rounded-lg">
-        <div className="flex flex-col gap-6 justify-center">
-          <button
-            onClick={handleChamarRecepcao}
-            className="flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            <Phone className="mr-2 h-5 w-5" />
-            Ligar para Recepção
-          </button>
-          <button
-            onClick={handleChamarRestaurante}
-            className="flex items-center justify-center px-6 py-3 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
-          >
-            <Phone className="mr-2 h-5 w-5" />
-            Ligar para Restaurante
-          </button>
-          <button
-            onClick={handleChamarLavanderia}
-            className="flex items-center justify-center px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-          >
-            <Phone className="mr-2 h-5 w-5" />
-            Ligar para Lavanderia
-          </button>
-        </div>
-      </div>
+<div className="w-full">
+  <div className="flex flex-col gap-4 w-full mb-3">
+   
+    <button
+      onClick={handleChamarRecepcao}
+      className="group flex items-center justify-center px-6 py-4 bg-primary text-white rounded-2xl shadow-md transition-all hover:bg-primary/80 focus:outline-none focus:ring-2 focus:ring-primary/50"
+    >
+      <Phone className="mr-3 h-5 w-5 group-hover:animate-pulse" />
+      <span className="font-medium">Recepção</span>
+    </button>
+
+    <button
+      onClick={handleChamarRestaurante}
+      className="group flex items-center justify-center px-6 py-4 bg-slate-600 text-white rounded-2xl shadow-md transition-all hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-400"
+    >
+      <HandPlatter  className="mr-3 h-5 w-5 group-hover:animate-pulse"/>
+      
+      <span className="font-medium">Restaurante</span>
+    </button>
+
+    <button
+      onClick={handleChamarLavanderia}
+      className="group flex items-center justify-center px-6 py-4 bg-secondary text-white rounded-2xl shadow-md transition-all hover:bg-secondary/80 focus:outline-none focus:ring-2 focus:ring-secondary/50"
+    >
+      <Shirt className="mr-3 h-5 w-5 group-hover:animate-pulse"/>
+      
+      <span className="font-medium">Lavanderia</span>
+    </button>
+  </div>
+</div>
+
     )}
 
-    <div className="mt-8 text-center text-sm text-gray-400">
-      <p>Este é o seu terminal de atendimento pessoal.</p>
-      <p>Você pode ligar para a recepção a qualquer momento para obter assistência.</p>
-    </div>
-  </div>
+ 
+ 
 </main>
 
   );

@@ -40,13 +40,13 @@ type Lampadas = Record<LampadaKey, Lampada>
 export default function SuiteDetails() {
   const params = useParams()
   const router = useRouter()
-  const suiteId  = params.id
- 
+  const suiteId = params.id
+
 
   const [suite, setSuite] = useState<Suite | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-const chamarClienteRef = useRef<((id: string) => Promise<void>) | undefined>();
+  const chamarClienteRef = useRef<((id: string) => Promise<void>) | undefined>();
 
 
   function handleFazerPedido() {
@@ -146,7 +146,7 @@ const chamarClienteRef = useRef<((id: string) => Promise<void>) | undefined>();
 
   return (
     <div className="h-full flex flex-col bg-[#121212]">
-      <Header title={`Detalhes da ${suite.nome}`} showSearch={false} />
+
 
       <div className="flex-1 p-2 sm:p-4 overflow-auto">
         <div className="flex items-center gap-2 mb-4">
@@ -157,10 +157,10 @@ const chamarClienteRef = useRef<((id: string) => Promise<void>) | undefined>();
           <span className={`px-2 py-1 rounded-md text-xs font-medium ${statusInfo.color}`}>{statusInfo.label}</span>
         </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1  gap-4">
           <div className="xl:col-span-2">
             <Tabs defaultValue="info" className="w-full">
-              <TabsList className="grid grid-cols-4 w-full bg-white rounded-lg mb-4">
+              <TabsList className="grid grid-cols-5 w-full bg-gray-500 rounded-lg mb-4">
                 <TabsTrigger value="info" className="text-black">
                   Info
                 </TabsTrigger>
@@ -172,6 +172,9 @@ const chamarClienteRef = useRef<((id: string) => Promise<void>) | undefined>();
                 </TabsTrigger>
                 <TabsTrigger value="clima" className="text-black">
                   Clima
+                </TabsTrigger>
+                <TabsTrigger value="telefonia" className="text-black">
+                  Telefonia
                 </TabsTrigger>
               </TabsList>
 
@@ -597,39 +600,37 @@ const chamarClienteRef = useRef<((id: string) => Promise<void>) | undefined>();
                   )}
                 </div>
               </TabsContent>
+
+              <TabsContent value="telefonia" className="bg-[#1e1e1e] rounded-lg p-6">
+
+
+                <div className="bg-[#1e1e1e] rounded-lg p-6">
+                  <h2 className="text-xl font-semibold mb-6">Ramais</h2>
+
+                  <div className="space-y-2">
+                    <ChamadaSuite idsuite={suiteId} />
+
+                  </div>
+
+                  <div className="border-t border-gray-700 pt-4 mt-4">
+
+
+
+
+                  </div>
+                  <Button onClick={handleFazerPedido} className="w-full justify-start bg-primary">
+                    <Coffee className="h-4 w-4 mr-2" />
+                    Fazer Pedido
+                  </Button>
+
+                </div>
+
+              </TabsContent>
             </Tabs>
           </div>
 
           <div className="order-first xl:order-last">
-            <div className="bg-[#1e1e1e] rounded-lg p-6">
-              <h2 className="text-xl font-semibold mb-6">Ações Rápidas</h2>
 
-              <div className="space-y-2">
-                <Button className="w-full justify-start bg-primary">
-                  <ShirtIcon className="h-4 w-4 mr-2" />
-                  Solicitar Lavanderia
-                </Button>
-              <Button onClick={handleFazerPedido} className="w-full justify-start bg-primary">
-      <Coffee className="h-4 w-4 mr-2" />
-      Fazer Pedido
-    </Button>
-                <Button className="w-full justify-start bg-primary">
-                  <Bed className="h-4 w-4 mr-2" />
-                  Trocar de Quarto
-                </Button>
-              </div>
-
-              <div className="border-t border-gray-700 pt-4 mt-4">
-              <ChamadaSuite idsuite={suiteId} />
-         
-
-
-              </div>
-
-              <Button variant="destructive" className="w-full justify-start mt-4">
-                Finalizar Estadia
-              </Button>
-            </div>
           </div>
         </div>
       </div>
