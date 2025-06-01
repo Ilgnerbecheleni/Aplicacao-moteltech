@@ -85,7 +85,7 @@ export default function Recepcao() {
   return (
     <div className="h-full flex flex-col">
       <Header title="Recepção" />
-  <ChamadaServico id='recepcao'  onChamar={fn => { chamarClienteRef.current = fn; }}  />
+  
 
       <div className="flex-1 p-4 overflow-auto">
         {/* Lista de suítes */}

@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef, useImperativeHandle } from "react"
 import { iniciarPeer, getPeer } from "@/services/peerManager"
 import { iniciarChamada, atenderChamada, encerrarChamada } from "@/services/callManager"
-import { Phone, PhoneOff,  Check, X } from "lucide-react"
+import { Phone, PhoneOff, Check, X } from "lucide-react"
 import toast, { Toaster } from "react-hot-toast"
 import useSound from "use-sound"
 import { MediaConnection } from "peerjs"
@@ -15,7 +15,7 @@ interface Cliente {
 }
 interface ChamadaServicoProps {
   id: string;
-   onChamar?: (fn: (destinoId: string) => Promise<void>) => void; // nova prop opcional
+  onChamar?: (fn: (destinoId: string) => Promise<void>) => void; // nova prop opcional
 }
 
 
@@ -28,24 +28,24 @@ export default function ChamadaServico({ id, onChamar }: ChamadaServicoProps,) {
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
   const [playRing, { stop: stopRing }] = useSound("/toque-cliente.mp3", { volume: 1.0, loop: true })
 
-useEffect(() => {
-  if (!id) return;
-  iniciarPeer(id).then((peer) => {
-    peer.on("call", (chamada: MediaConnection) => {
-      console.log("📞 Recebendo chamada de", chamada.peer);
-      setChamadaDe(chamada.peer);
-      setConn(chamada);
-      playRing();
+  useEffect(() => {
+    if (!id) return;
+    iniciarPeer(id).then((peer) => {
+      peer.on("call", (chamada: MediaConnection) => {
+        console.log("📞 Recebendo chamada de", chamada.peer);
+        setChamadaDe(chamada.peer);
+        setConn(chamada);
+        playRing();
+      });
     });
-  });
 
-  carregarClientes();
+    carregarClientes();
 
-  // ⚡️ DESTROY O PEER AO DESMONTAR/SAIR
-  // return () => {
-  //   destroyPeer();
-  // };
-}, [id]);
+    // ⚡️ DESTROY O PEER AO DESMONTAR/SAIR
+    // return () => {
+    //   destroyPeer();
+    // };
+  }, [id]);
 
 
   useEffect(() => {
@@ -58,26 +58,26 @@ useEffect(() => {
 
 
 
-const carregarClientes = async () => {
-  try {
-    const resp = await fetch("/api/suites");
-    if (!resp.ok) throw new Error("Erro ao buscar suítes");
-    const suites = await resp.json();
+  const carregarClientes = async () => {
+    try {
+      const resp = await fetch("/api/suites");
+      if (!resp.ok) throw new Error("Erro ao buscar suítes");
+      const suites = await resp.json();
 
-    // Garante que seja um array e filtra só os campos necessários
-    const lista: Cliente[] = Array.isArray(suites)
-      ? suites.map((item: any) => ({
+      // Garante que seja um array e filtra só os campos necessários
+      const lista: Cliente[] = Array.isArray(suites)
+        ? suites.map((item: any) => ({
           id: String(item.id),
           nome: String(item.nome)
         }))
-      : [];
+        : [];
 
-    setClientes(lista);
-  } catch (error) {
-    console.error("Erro ao listar clientes", error);
-    toast.error("Erro ao carregar clientes");
-  }
-};
+      setClientes(lista);
+    } catch (error) {
+      console.error("Erro ao listar clientes", error);
+      toast.error("Erro ao carregar clientes");
+    }
+  };
 
 
   const handleChamar = async (idDestino?: string) => {
@@ -145,56 +145,58 @@ const carregarClientes = async () => {
   }
 
   return (
-    <main className="container mx-auto px-4 py-8 max-w-6xl bg-[#1e1e1e] m">
-  <Toaster />
- 
+    <main className="">
+      <Toaster />
 
- 
-  
+
+
+
 
       {chamadaDe && (
-        <div className="mb-6 p-4 bg-yellow-900/30 border border-yellow-700 rounded-lg">
-          <h3 className="text-lg font-medium text-yellow-300 mb-3">Chamada recebida de {chamadaDe}</h3>
-          <div className="flex space-x-3">
-            <button onClick={handleAtender} className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
-              <Check className="mr-2 h-4 w-4" /> Atender
-            </button>
-            <button onClick={handleRecusar} className="flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
-              <X className="mr-2 h-4 w-4" /> Recusar
-            </button>
-          </div>
-        </div>
+
+
+        <div className="w-full flex justify-center items-center gap-3 py-4">
+  <span className="font-medium text-white">
+    Chamada  de suite {chamadaDe}
+  </span>
+  <button
+    onClick={handleAtender}
+    className="flex items-center px-5 py-2 bg-green-600 text-white rounded-2xl shadow-md hover:bg-green-700 transition"
+  >
+    <Check className="mr-2 h-4 w-4" /> Atender
+  </button>
+  <button
+    onClick={handleRecusar}
+    className="flex items-center px-5 py-2 bg-red-600 text-white rounded-2xl shadow-md hover:bg-red-700 transition"
+  >
+    <X className="mr-2 h-4 w-4" /> Recusar
+  </button>
+</div>
+
+
+
       )}
 
       {chamadaAtiva && (
-        <div className="mb-6 p-4 bg-green-900/30 border border-green-700 rounded-lg">
-          <h3 className="text-lg font-medium text-green-300 mb-3">Chamada em andamento</h3>
-          <button onClick={handleEncerrar} className="flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
-            <PhoneOff className="mr-2 h-4 w-4" /> Encerrar Chamada
-          </button>
-        </div>
+       <div className=" p-2 bg-green-900/30 border border-green-700 rounded-2xl flex items-center justify-center gap-4">
+  <h3 className="text-lg font-medium text-green-300 m-0">
+    Chamada em andamento
+  </h3>
+  <button
+    onClick={handleEncerrar}
+    className="flex items-center px-5 py-2 bg-red-600 text-white rounded-2xl shadow-md hover:bg-red-700 transition"
+  >
+    <PhoneOff className="mr-2 h-4 w-4" /> Encerrar Chamada
+  </button>
+</div>
+
       )}
 
-      <div className="bg-[#181818] p-4 rounded-lg border border-gray-800">
-        <h3 className="text-lg font-medium text-gray-100 mb-3">Ligar para Cliente</h3>
-        <div className="flex flex-col sm:flex-row gap-3">
-          <input
-            type="text"
-            placeholder="Digite ID do Cliente"
-            value={destino}
-            onChange={e => setDestino(e.target.value)}
-            className="flex-1 px-4 py-2 border border-gray-700 bg-[#232323] text-gray-100 rounded-lg focus:ring-2 focus:ring-blue-500"
-          />
-          <button onClick={() => handleChamar()} className="flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-            <Phone className="mr-2 h-4 w-4" /> Ligar
-          </button>
-        </div>
-      </div>
 
-     
-  
- 
-</main>
+
+
+
+    </main>
 
   )
 }

@@ -1,5 +1,7 @@
 import { Bell, Search, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import ChamadaServico from "./ChamadaServico"
+import { useRef } from "react"
 
 
 interface HeaderProps {
@@ -9,10 +11,11 @@ interface HeaderProps {
 }
 
 export default function Header({ title, showSearch = true }: HeaderProps) {
+   const chamarClienteRef = useRef<((id: string) => Promise<void>) | undefined>();
   return (
     <div className="flex items-center justify-between p-4 border-b border-gray-800">
       <h1 className="text-xl font-semibold">{title}</h1>
-
+        <ChamadaServico id='recepcao'  onChamar={fn => { chamarClienteRef.current = fn; }}  />
       <div className="flex items-center gap-2">
         {showSearch && (
           <div className="relative">
