@@ -26,6 +26,7 @@ import { useState, useEffect, useRef } from "react"
 
 import { type Suite, getStatusSuite } from "@/types/suite"
 import ChamadaSuite from "@/components/ChamadaSuite"
+import { ListaCardapioSimples } from "@/components/ListaCardapioSimples"
 
 
 type LampadaKey = "principal" | "banheiro" | "ambiente" | "led"
@@ -157,26 +158,17 @@ export default function SuiteDetails() {
           <span className={`px-2 py-1 rounded-md text-xs font-medium ${statusInfo.color}`}>{statusInfo.label}</span>
         </div>
 
-        <div className="grid grid-cols-1  gap-4">
+        <div className="grid grid-cols-1  gap-2">
           <div className="xl:col-span-2">
             <Tabs defaultValue="info" className="w-full">
-              <TabsList className="grid grid-cols-5 w-full bg-gray-500 rounded-lg mb-4">
-                <TabsTrigger value="info" className="text-black">
-                  Info
-                </TabsTrigger>
-                <TabsTrigger value="luzes" className="text-black">
-                  Luzes
-                </TabsTrigger>
-                <TabsTrigger value="tv" className="text-black">
-                  TV
-                </TabsTrigger>
-                <TabsTrigger value="clima" className="text-black">
-                  Clima
-                </TabsTrigger>
-                <TabsTrigger value="telefonia" className="text-black">
-                  Telefonia
-                </TabsTrigger>
-              </TabsList>
+             <TabsList className="flex w-full bg-gray-500 rounded-lg mb-4 text-sm">
+
+  <TabsTrigger value="luzes" className="text-black flex-1">Luzes</TabsTrigger>
+  <TabsTrigger value="tv" className="text-black flex-1">TV</TabsTrigger>
+  <TabsTrigger value="clima" className="text-black flex-1">Clima</TabsTrigger>
+  <TabsTrigger value="telefonia" className="text-black flex-1">Telefonia</TabsTrigger>
+  <TabsTrigger value="cardapio" className="text-black flex-1">Cardápio</TabsTrigger>
+</TabsList>
 
               <TabsContent value="info" className="bg-[#1e1e1e] rounded-lg p-6">
                 <h2 className="text-xl font-semibold mb-2">Informações da Estadia</h2>
@@ -623,6 +615,15 @@ export default function SuiteDetails() {
                     Fazer Pedido
                   </Button>
 
+                </div>
+
+              </TabsContent>
+              <TabsContent value="cardapio" className="bg-[#1e1e1e] rounded-lg p-6">
+
+
+                <div className="bg-[#1e1e1e] rounded-lg p-6">
+                 
+                  <ListaCardapioSimples/>
                 </div>
 
               </TabsContent>
