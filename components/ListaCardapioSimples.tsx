@@ -38,9 +38,9 @@ export function ListaCardapioSimples() {
   if (!produtos.length) return <div className="py-6 text-center text-gray-400">Nenhum item encontrado.</div>
 
   return (
-    <div className="w-full">
+    <>
       {/* Botão Fazer Pedido */}
-      <div className="mb-4 w-full flex justify-center">
+      <div className="mb-4 w-full flex justify-end">
         <Button className="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg shadow">
           <Coffee className="h-5 w-5" />
           Fazer Pedido
@@ -52,7 +52,7 @@ export function ListaCardapioSimples() {
         {produtos.map((item) => (
           <li
             key={item.id}
-            className="flex items-center gap-3 bg-[#232323] px-3 py-2 rounded-lg w-full"
+            className="flex items-center gap-2 bg-[#232323] px-2 py-1 rounded-lg w-full"
           >
             <img
               src={item.product_image || "/placeholder.svg?height=60&width=60"}
@@ -62,8 +62,8 @@ export function ListaCardapioSimples() {
             />
 
             <div className="flex-1 min-w-0">
-              <div className="font-medium truncate">{item.product_name}</div>
-              <div className="text-xs text-gray-400 truncate">{item.product_description}</div>
+              <div className="font-sans truncate text-sm">{item.product_name}</div>
+              <div className="text-sm text-gray-400 truncate">{item.product_description}</div>
               <div className="text-primary font-semibold text-sm">{formatarPreco(item.rate)}</div>
             </div>
 
@@ -78,6 +78,6 @@ export function ListaCardapioSimples() {
           </li>
         ))}
       </ul>
-    </div>
+    </>
   )
 }

@@ -225,7 +225,7 @@ useEffect(() => {
 
     <button
       onClick={handleChamarLavanderia}
-      className="group flex items-center justify-center px-6 py-4 bg-secondary text-white rounded-2xl shadow-md transition-all hover:bg-secondary/80 focus:outline-none focus:ring-2 focus:ring-secondary/50"
+      className="group flex items-center justify-center px-6 py-4  bg-green-700 text-white rounded-2xl shadow-md transition-all hover:bg-secondary/80 focus:outline-none focus:ring-2 focus:ring-secondary/50"
     >
       <Shirt className="mr-3 h-5 w-5 group-hover:animate-pulse"/>
       

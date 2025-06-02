@@ -1,6 +1,6 @@
 // app/api/suites/[id]/route.ts
-import { getConnection } from '@/lib/db';
-import { NextRequest, NextResponse } from 'next/server';
+import { getConnection } from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
 
 interface Params {
   params: {
@@ -8,21 +8,24 @@ interface Params {
   };
 }
 
-export async function GET(req: NextRequest, { params }: Params) {
-  const { id } = params;
+export async function GET(req: NextRequest, context: Params) {
+  const { id } = context.params;  // use context.params
+
   const conn = await getConnection();
 
   try {
-    const [rows] = await conn.execute('SELECT * FROM tblsuites WHERE id = ?', [id]);
-    
+    const [rows] = await conn.execute(
+      "SELECT * FROM tblsuites WHERE id = ?",
+      [id]
+    );
+
     if (!Array.isArray(rows) || rows.length === 0) {
-      return NextResponse.json({ error: 'Suíte não encontrada' }, { status: 404 });
+      return NextResponse.json({ error: "Suíte não encontrada" }, { status: 404 });
     }
 
     return NextResponse.json(rows[0]);
-  } catch (err) {
-    console.error(err);
-    return NextResponse.json({ error: 'Erro ao consultar suíte' }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json({ error: "Erro ao buscar suíte" }, { status: 500 });
   } finally {
     await conn.end();
   }

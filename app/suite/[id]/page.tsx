@@ -620,12 +620,8 @@ export default function SuiteDetails() {
               </TabsContent>
               <TabsContent value="cardapio" className="bg-[#1e1e1e] rounded-lg p-6">
 
-
-                <div className="bg-[#1e1e1e] rounded-lg p-6">
-                 
+        
                   <ListaCardapioSimples/>
-                </div>
-
               </TabsContent>
             </Tabs>
           </div>
