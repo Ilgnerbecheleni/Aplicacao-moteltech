@@ -141,7 +141,7 @@ export default function Recepcao() {
                         className="w-full rounded-none py-3 text-primary hover:bg-primary/20 hover:text-primary"
                       >
                         <Info className="h-4 w-4 mr-1" />
-                        Detalhes
+                        Comandar
                       </Button>
                     </Link>
                   </div>

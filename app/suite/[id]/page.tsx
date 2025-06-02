@@ -36,6 +36,8 @@ interface Lampada {
   intensidade: number
 }
 
+
+
 type Lampadas = Record<LampadaKey, Lampada>
 
 export default function SuiteDetails() {
@@ -130,7 +132,7 @@ export default function SuiteDetails() {
   if (error || !suite) {
     return (
       <div className="h-full flex flex-col">
-        <Header title="Erro" showSearch={false} />
+
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <p className="text-red-400 mb-4">Erro: {error || "Suíte não encontrada"}</p>
@@ -161,14 +163,14 @@ export default function SuiteDetails() {
         <div className="grid grid-cols-1  gap-2">
           <div className="xl:col-span-2">
             <Tabs defaultValue="info" className="w-full">
-             <TabsList className="flex w-full bg-gray-500 rounded-lg mb-4 text-sm">
+              <TabsList className="flex w-full bg-gray-500 rounded-lg mb-4 text-sm">
 
-  <TabsTrigger value="luzes" className="text-black flex-1">Luzes</TabsTrigger>
-  <TabsTrigger value="tv" className="text-black flex-1">TV</TabsTrigger>
-  <TabsTrigger value="clima" className="text-black flex-1">Clima</TabsTrigger>
-  <TabsTrigger value="telefonia" className="text-black flex-1">Telefonia</TabsTrigger>
-  <TabsTrigger value="cardapio" className="text-black flex-1">Cardápio</TabsTrigger>
-</TabsList>
+                <TabsTrigger value="luzes" className="text-black flex-1">Luzes</TabsTrigger>
+                <TabsTrigger value="tv" className="text-black flex-1">TV</TabsTrigger>
+                <TabsTrigger value="clima" className="text-black flex-1">Clima</TabsTrigger>
+                <TabsTrigger value="telefonia" className="text-black flex-1">Telefonia</TabsTrigger>
+                <TabsTrigger value="cardapio" className="text-black flex-1">Cardápio</TabsTrigger>
+              </TabsList>
 
               <TabsContent value="info" className="bg-[#1e1e1e] rounded-lg p-6">
                 <h2 className="text-xl font-semibold mb-2">Informações da Estadia</h2>
@@ -620,8 +622,8 @@ export default function SuiteDetails() {
               </TabsContent>
               <TabsContent value="cardapio" className="bg-[#1e1e1e] rounded-lg p-6">
 
-        
-                  <ListaCardapioSimples/>
+
+                <ListaCardapioSimples />
               </TabsContent>
             </Tabs>
           </div>
