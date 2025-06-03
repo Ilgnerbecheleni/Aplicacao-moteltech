@@ -1,21 +1,33 @@
 import { Bell, Search, User } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import ChamadaServico from "./ChamadaServico"
-import { useRef } from "react"
+import { useState } from "react"
+
 
 
 interface HeaderProps {
   title: string
   showSearch?: boolean
     showAtendent?: boolean
+      onChamar?: (fn: (destinoId: string) => Promise<void>) => void;
+      id:string
 }
 
-export default function Header({ title, showSearch = true }: HeaderProps) {
-   const chamarClienteRef = useRef<((id: string) => Promise<void>) | undefined>();
+export default function Header({ title, showSearch = true , id , onChamar }: HeaderProps) {
+     const [chamar, setChamar] = useState<((id: string) => Promise<void>) | null>(null);
+
+
+       const testarChamada = () => {
+    if (chamar) {
+    console.log('chamando')
+    }
+  };
+
+
   return (
     <div className="flex items-center justify-between p-4 border-b border-gray-800">
       <h1 className="text-xl font-semibold">{title}</h1>
-        <ChamadaServico id='recepcao'  onChamar={fn => { chamarClienteRef.current = fn; }}  />
+        <ChamadaServico id={id} onChamar={onChamar}  />
       <div className="flex items-center gap-2">
         {showSearch && (
           <div className="relative">

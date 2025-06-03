@@ -8,6 +8,8 @@ import toast, { Toaster } from "react-hot-toast"
 import useSound from "use-sound"
 import { MediaConnection } from "peerjs"
 
+
+
 // Tipagem para cliente
 interface Cliente {
   id: string;
@@ -18,8 +20,11 @@ interface ChamadaServicoProps {
   onChamar?: (fn: (destinoId: string) => Promise<void>) => void; // nova prop opcional
 }
 
+export interface ChamadaServicoHandle {
+  chamar: (destinoId: string) => void;
+}
 
-export default function ChamadaServico({ id, onChamar }: ChamadaServicoProps,) {
+export default function ChamadaServico({ id, onChamar }: ChamadaServicoProps,ref) {
   const [meuId, setMeuId] = useState<string>("recepcao")
   const [chamadaDe, setChamadaDe] = useState<string | null>(null)
   const [chamadaAtiva, setChamadaAtiva] = useState<boolean>(false)
@@ -49,11 +54,13 @@ export default function ChamadaServico({ id, onChamar }: ChamadaServicoProps,) {
 
 
   useEffect(() => {
-    if (onChamar) onChamar(handleChamar);
+   
+    if (onChamar){ 
+      
+      onChamar(handleChamar)};
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [onChamar]);
-
-
 
 
 
@@ -82,6 +89,7 @@ export default function ChamadaServico({ id, onChamar }: ChamadaServicoProps,) {
 
   const handleChamar = async (idDestino?: string) => {
     try {
+      console.log("Chamando destino "+ idDestino)
       const idParaChamar = idDestino || destino
       if (!idParaChamar) {
         toast.error("Informe o ID do cliente.")

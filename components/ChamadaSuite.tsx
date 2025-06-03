@@ -60,8 +60,10 @@ useEffect(() => {
 
   useEffect(() => {
     if (id && clienteValido) {
+      console.log('iniciando peer '+ id)
       iniciarPeer(id).then((peer) => {
         peer.on("call", (chamada: MediaConnection) => {
+          console.log("📡 Peer inicializado para ID", id);
           setChamadaDe(chamada.peer);
           setConn(chamada);
           setTocandoToque(true);
@@ -74,7 +76,7 @@ useEffect(() => {
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, clienteValido]);
+  }, [id, clienteValido, idsuite]);
 
   const exibirMensagem = (texto: string, tipo: "erro" | "info" | "sucesso" = "sucesso") => {
     setMensagem(texto);

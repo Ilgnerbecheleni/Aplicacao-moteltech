@@ -20,7 +20,7 @@ import {
   Minus,
   Wind,
 } from "lucide-react"
-import Header from "@/components/header"
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useState, useEffect, useRef } from "react"
 
@@ -118,7 +118,7 @@ export default function SuiteDetails() {
   if (loading) {
     return (
       <div className="h-full flex flex-col">
-        <Header title="Carregando..." showSearch={false} />
+       
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>

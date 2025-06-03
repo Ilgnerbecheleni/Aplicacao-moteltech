@@ -135,7 +135,7 @@ export default function CardapioPage() {
   if (error) {
     return (
       <div className="h-full flex flex-col">
-        <Header title="Cardápio" showSearch={false} />
+      
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <p className="text-red-400 mb-4">Erro: {error}</p>

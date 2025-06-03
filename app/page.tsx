@@ -5,17 +5,33 @@ import { Info, Phone, ShirtIcon, UtensilsCrossed } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { type Suite, getStatusSuite } from "@/types/suite"
-import ChamadaServico from "@/components/ChamadaServico"
+
 import { useServiceIds } from "@/contexts/ServiceIdContext"
+
 
 export default function Recepcao() {
 
   const [suites, setSuites] = useState<Suite[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const chamarClienteRef = useRef<((id: string) => Promise<void>) | undefined>();
+  //const chamarClienteRef = useRef<((id: string) => Promise<void>) | undefined>();
+const [chamarFn, setChamarFn] = useState<((id: string) => Promise<void>) | null>(null);
+
+function chamarSuite(id: string) {
+  if (chamarFn) {
+    chamarFn(id);
+  } else {
+    console.warn("Função ainda não registrada");
+  }
+}
+
+
+const registrarChamarFn = useCallback((fn: (id: string) => Promise<void>) => {
+  setChamarFn(() => fn);
+}, []);
+
   const { ids } = useServiceIds();
   useEffect(() => {
     async function fetchSuites() {
@@ -51,12 +67,12 @@ export default function Recepcao() {
     },
   ]
 
-
+ 
 
   if (loading) {
     return (
       <div className="h-full flex flex-col">
-        <Header title="Recepção" />
+      
         
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
@@ -71,7 +87,7 @@ export default function Recepcao() {
   if (error) {
     return (
       <div className="h-full flex flex-col">
-        <Header title="Recepção" />
+       
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <p className="text-red-400 mb-4">Erro: {error}</p>
@@ -84,7 +100,7 @@ export default function Recepcao() {
 
   return (
     <div className="h-full flex flex-col">
-      <Header title="Recepção" />
+      <Header title="Recepção" onChamar={(fn) => setChamarFn(() => fn)} id="recepcao"  />
   
 
       <div className="flex-1 p-4 overflow-auto">
@@ -127,7 +143,9 @@ export default function Recepcao() {
                     <Button
                       variant="ghost"
                       className="flex-1 rounded-none py-3 text-green-400 hover:bg-green-400/20 hover:text-green-400"
-                      onClick={() => chamarClienteRef.current?.(String(suite.id))}
+                      onClick={() => { 
+                       chamarSuite(suite.id)
+                      }}
                     >
                       <Phone className="h-4 w-4 mr-1" />
                       Chamar
