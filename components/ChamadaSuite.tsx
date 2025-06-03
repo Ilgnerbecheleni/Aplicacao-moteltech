@@ -169,22 +169,22 @@ useEffect(() => {
     )}
 
     {chamadaDe && (
-      <div className="mb-6 p-5 bg-yellow-900/20 border border-yellow-700 rounded-lg animate-pulse">
+      <div className="mb-6 p-5 bg-yellow-900/20 border border-yellow-700 rounded-lg animate-pulse flex  flex-col justify-center align-middle">
         <h2 className="text-xl font-semibold text-yellow-300 mb-4">Chamada recebida</h2>
-        <div className="flex space-x-4">
+        <div className="flex space-x-4 justify-center">
           <button
             onClick={handleAtender}
-            className="flex-1 flex items-center justify-center px-4 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            className="flex-1 flex items-center justify-center px-2 py-1 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
           >
             <Check className="mr-2 h-5 w-5" />
-            Atender
+            
           </button>
           <button
             onClick={handleRecusar}
             className="flex-1 flex items-center justify-center px-4 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
           >
             <X className="mr-2 h-5 w-5" />
-            Recusar
+            
           </button>
         </div>
       </div>

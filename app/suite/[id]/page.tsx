@@ -54,7 +54,7 @@ export default function SuiteDetails() {
 
   function handleFazerPedido() {
     // Aqui você pode adicionar qualquer lógica antes do redirecionamento
-    router.push("/restaurante/cardapio")
+    // router.push("/restaurante/cardapio")
   }
 
 
@@ -118,7 +118,7 @@ export default function SuiteDetails() {
   if (loading) {
     return (
       <div className="h-full flex flex-col">
-       
+
         <div className="flex-1 flex items-center justify-center">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
@@ -159,69 +159,21 @@ export default function SuiteDetails() {
           <h1 className="text-xl font-bold">{suite.nome}</h1>
           <span className={`px-2 py-1 rounded-md text-xs font-medium ${statusInfo.color}`}>{statusInfo.label}</span>
         </div>
-
+      
         <div className="grid grid-cols-1  gap-2">
           <div className="xl:col-span-2">
-            <Tabs defaultValue="telefonia" className="w-full">
+            <Tabs defaultValue="telefonia" className="w-full 6">
               <TabsList className="flex w-full bg-gray-500 rounded-lg mb-4 text-sm">
-                <TabsTrigger value="telefonia" className="text-black flex-1">Telefonia</TabsTrigger> 
+                <TabsTrigger value="telefonia" className="text-black flex-1">Telefonia</TabsTrigger>
                 <TabsTrigger value="luzes" className="text-black flex-1">Luzes</TabsTrigger>
                 <TabsTrigger value="tv" className="text-black flex-1">TV</TabsTrigger>
                 <TabsTrigger value="clima" className="text-black flex-1">Clima</TabsTrigger>
                 <TabsTrigger value="cardapio" className="text-black flex-1">Cardápio</TabsTrigger>
-                <TabsTrigger value="cardapio" className="text-black flex-1"><FaInfo /></TabsTrigger>
+
               </TabsList>
 
               <TabsContent value="info" className="bg-[#1e1e1e] rounded-lg p-6">
-                <h2 className="text-xl font-semibold mb-2">Informações da Estadia</h2>
-                <p className="text-sm text-gray-400 mb-6">Detalhes sobre a ocupação atual</p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="flex items-center gap-3">
-                    <div className="bg-[#2a2a2a] p-3 rounded-full">
-                      <User className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-400">Cliente</p>
-                      <p className="font-medium">{dadosEstadia.cliente}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <div className="bg-[#2a2a2a] p-3 rounded-full">
-                      <Phone className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-400">Ramal</p>
-                      <p className="font-medium">{suite.ramal || `R${suite.numero}`}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <div className="bg-[#2a2a2a] p-3 rounded-full">
-                      <Calendar className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-400">Entrada</p>
-                      <p className="font-medium">{dadosEstadia.entrada}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <div className="bg-[#2a2a2a] p-3 rounded-full">
-                      <Clock className="h-5 w-5 text-primary" />
-                    </div>
-                    <div>
-                      <p className="text-sm text-gray-400">Previsão de Saída</p>
-                      <p className="font-medium">{dadosEstadia.previsaoSaida}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-6">
-                  <h3 className="font-medium mb-2">Valor Total</h3>
-                  <div className="text-2xl font-bold text-primary">{dadosEstadia.valorTotal}</div>
-                </div>
               </TabsContent>
 
               <TabsContent value="luzes" className="bg-[#1e1e1e] rounded-lg p-6">
@@ -612,10 +564,7 @@ export default function SuiteDetails() {
 
 
                   </div>
-                  <Button onClick={handleFazerPedido} className="w-full justify-start bg-primary">
-                    <Coffee className="h-4 w-4 mr-2" />
-                    Fazer Pedido
-                  </Button>
+              
 
                 </div>
 
@@ -626,11 +575,61 @@ export default function SuiteDetails() {
                 <ListaCardapioSimples />
               </TabsContent>
             </Tabs>
+            
           </div>
 
-          <div className="order-first xl:order-last">
+            <div className="mt-4">
+          <h2 className="text-xl font-semibold mb-2">Informações da Estadia</h2>
+          <p className="text-sm text-gray-400 mb-6">Detalhes sobre a ocupação atual</p>
 
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="flex items-center gap-3">
+              <div className="bg-[#2a2a2a] p-3 rounded-full">
+                <User className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-400">Cliente</p>
+                <p className="font-medium">{dadosEstadia.cliente}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="bg-[#2a2a2a] p-3 rounded-full">
+                <Phone className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-400">Ramal</p>
+                <p className="font-medium">{suite.ramal || `R${suite.id}`}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="bg-[#2a2a2a] p-3 rounded-full">
+                <Calendar className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-400">Entrada</p>
+                <p className="font-medium">{dadosEstadia.entrada}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="bg-[#2a2a2a] p-3 rounded-full">
+                <Clock className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-400">Previsão de Saída</p>
+                <p className="font-medium">{dadosEstadia.previsaoSaida}</p>
+              </div>
+            </div>
           </div>
+
+          <div className="mt-6">
+            <h3 className="font-medium mb-2">Valor Total</h3>
+            <div className="text-2xl font-bold text-primary">{dadosEstadia.valorTotal}</div>
+          </div>
+        </div>
+
         </div>
       </div>
     </div>
