@@ -27,7 +27,7 @@ export default function Header({ title, showSearch = true , id , onChamar }: Hea
   return (
     <div className="flex items-center justify-between p-4 border-b border-gray-800">
       <h1 className="text-xl font-semibold">{title}</h1>
-        <ChamadaServico id={id} onChamar={onChamar}  />
+      
       <div className="flex items-center gap-2">
         {showSearch && (
           <div className="relative">

@@ -9,6 +9,7 @@ import { useCallback, useEffect, useRef, useState } from "react"
 import { type Suite, getStatusSuite } from "@/types/suite"
 
 import { useServiceIds } from "@/contexts/ServiceIdContext"
+import ChamadaServico from "@/components/ChamadaServico"
 
 
 export default function Recepcao() {
@@ -17,7 +18,7 @@ export default function Recepcao() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   //const chamarClienteRef = useRef<((id: string) => Promise<void>) | undefined>();
-const [chamarFn, setChamarFn] = useState<((id: string) => Promise<void>) | null>(null);
+  const [chamarFn, setChamarFn] = useState<((id: string) => Promise<void>) | null>(null);
 
 function chamarSuite(id: string) {
   if (chamarFn) {
@@ -100,9 +101,9 @@ const registrarChamarFn = useCallback((fn: (id: string) => Promise<void>) => {
 
   return (
     <div className="h-full flex flex-col">
-      <Header title="Recepção" onChamar={(fn) => setChamarFn(() => fn)} id="recepcao"  />
+      <Header title="Recepção" id="recepcao"  />
   
-
+      <ChamadaServico id="recepcao" onChamar={registrarChamarFn} />
       <div className="flex-1 p-4 overflow-auto">
         {/* Lista de suítes */}
         <div className="mb-8">

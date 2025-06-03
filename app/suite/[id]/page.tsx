@@ -1,5 +1,5 @@
 "use client"
-
+import { FaInfo } from "react-icons/fa";
 import { useParams, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import {
@@ -162,14 +162,14 @@ export default function SuiteDetails() {
 
         <div className="grid grid-cols-1  gap-2">
           <div className="xl:col-span-2">
-            <Tabs defaultValue="info" className="w-full">
+            <Tabs defaultValue="telefonia" className="w-full">
               <TabsList className="flex w-full bg-gray-500 rounded-lg mb-4 text-sm">
-
+                <TabsTrigger value="telefonia" className="text-black flex-1">Telefonia</TabsTrigger> 
                 <TabsTrigger value="luzes" className="text-black flex-1">Luzes</TabsTrigger>
                 <TabsTrigger value="tv" className="text-black flex-1">TV</TabsTrigger>
                 <TabsTrigger value="clima" className="text-black flex-1">Clima</TabsTrigger>
-                <TabsTrigger value="telefonia" className="text-black flex-1">Telefonia</TabsTrigger>
                 <TabsTrigger value="cardapio" className="text-black flex-1">Cardápio</TabsTrigger>
+                <TabsTrigger value="cardapio" className="text-black flex-1"><FaInfo /></TabsTrigger>
               </TabsList>
 
               <TabsContent value="info" className="bg-[#1e1e1e] rounded-lg p-6">

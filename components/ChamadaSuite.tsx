@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import { iniciarPeer } from "@/services/peerManager";
 import { iniciarChamada, atenderChamada, encerrarChamada } from "@/services/callManager";
@@ -23,8 +23,8 @@ interface ChamadaSuiteProps {
 export default function ChamadaSuite({ idsuite }:ChamadaSuiteProps) {
   // useParams retorna um objeto com [key: string]: string | string[] | undefined
   const params = useParams();
-  const id = idsuite;
-
+  const id = String(idsuite);
+const peerInicializado = useRef(false);
   const [clienteValido, setClienteValido] = useState<boolean | null>(null);
   const [nomeCliente, setNomeCliente] = useState<string>("");
   const [chamadaDe, setChamadaDe] = useState<string | null>(null);
@@ -60,8 +60,9 @@ useEffect(() => {
 
   useEffect(() => {
     if (id && clienteValido) {
-      console.log('iniciando peer '+ id)
+      
       iniciarPeer(id).then((peer) => {
+        console.log('iniciando peer '+ id)
         peer.on("call", (chamada: MediaConnection) => {
           console.log("📡 Peer inicializado para ID", id);
           setChamadaDe(chamada.peer);
@@ -69,14 +70,14 @@ useEffect(() => {
           setTocandoToque(true);
           exibirMensagem("Chamada recebida da Recepção!", "info");
         });
-
+          console.log('inicializado peer '+ id)
         // ☎️ Liga automaticamente para a recepção assim que o peer estiver pronto
         // iniciarChamada("recepcao", setChamadaAtiva);
         // exibirMensagem("Ligando automaticamente para a recepção...", "info");
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id, clienteValido, idsuite]);
+  }, [id, clienteValido]);
 
   const exibirMensagem = (texto: string, tipo: "erro" | "info" | "sucesso" = "sucesso") => {
     setMensagem(texto);
